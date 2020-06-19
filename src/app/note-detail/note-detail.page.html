@@ -1,0 +1,66 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button (click)="popView()"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Detalhe da Nota</ion-title>
+    <ion-buttons slot="end" *ngIf="selectedNote">
+      <ion-button (click)="removeNote()"
+        ><ion-icon name="trash-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form [formGroup]="form" (ngSubmit)="onSubmit(form)">
+    <ion-item>
+      <ion-label position="floating">Título</ion-label>
+      <ion-input formControlName="title" type="text"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Descrição</ion-label>
+      <ion-textarea
+        formControlName="description"
+        type="text"
+        rows="3"
+        cols="20"
+      ></ion-textarea>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Localização</ion-label>
+      <ion-input [value]="loc ? loc : 'Localização obtida do botão'" readonly></ion-input>
+    </ion-item>
+
+
+    <div id="img-content">
+      <ion-label> Imagem </ion-label>
+      <div
+        (click)="openGallery()"
+        [ngStyle]="{
+          'background-image':
+            'url(' +
+            (imgUrl
+              ? imgUrl
+              : 'assets/img/image-picker.png') +
+            ')'
+        }"
+      ></div>
+    </div>
+
+    <div id="button-content">
+      <ion-button fill="clear" (click)="openGallery()">
+        <ion-icon name="image-outline"></ion-icon>
+        Adicionar imagem
+      </ion-button>
+      <ion-button fill="clear" (click)="getLocation()">
+        <ion-icon name="location-outline"></ion-icon>
+        Obter localização
+      </ion-button>
+    </div>
+
+    <ion-button id="save-note" expand="block" fill="outline" type="submit">
+      {{ selectedNote ? "ATUALIZAR NOTA" : "SALVAR NOTA" }}</ion-button
+    >
+  </form>
+</ion-content>

@@ -24,3 +24,30 @@
 @import "~@ionic/angular/css/text-alignment.css";
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
+
+ion-label {
+    white-space: normal !important;
+    flex-direction: row;
+ }
+ ion-content{
+    --padding-top: 20px;
+    --padding-start: 20px;
+    --padding-end: 20px;
+    ion-item {
+      --padding-start: 0px;
+    }
+ }
+
+ .header-md{
+   background: #4c8dff;
+   ion-toolbar{
+      --ion-toolbar-background: #4c8dff;
+      color: white;
+      ion-icon, span{
+         color: white;
+      }
+      ion-back-button{
+         --color: white !important;
+      }
+   }
+ }

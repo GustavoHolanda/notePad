@@ -1,20 +1,58 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Blank
+      Notas
     </ion-title>
+    <ion-buttons slot="end">
+      <ion-button routerLink="/note-detail" (click)="(removeSelectedNote)">
+        <ion-icon name="add-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
+  <ion-searchbar
+    showCancelButton="focus"
+    placeholder="Buscar Notas"
+    debounce="500"
+    (ionChange)="searchNote($event)"
+  ></ion-searchbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <ion-list *ngIf="(notes$ | async).length > 0">
+    <ion-item-sliding *ngFor="let note of notes$ | async">
+      <ion-item (click)="selectNote(note)" routerLink="/note-detail">
+        <div id="item">
+          <label id="title"> {{ note.title }} </label>
+          <label id="last-modification">
+            Última modificação: {{ note.lastModification }}
+          </label>
+        </div>
+      </ion-item>
 
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
+      <ion-item-options side="end">
+        <ion-item-option color="danger" (click)="removeNote(note)"
+          >Remover</ion-item-option
+        >
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
+
+  <div
+    id="no-notes"
+    *ngIf="(notes$ | async).length === 0 && !(filter$ | async)"
+  >
+    <ion-icon name="newspaper-outline" color="primary"></ion-icon>
+    <span> Você ainda não possui notas salvas!</span>
+    <ion-button routerLink="/note-detail" expand="block" fill="outline">
+      Fazer minha primeira anotação</ion-button
+    >
+  </div>
+
+  <div id="no-notes" *ngIf="(notes$ | async).length === 0 && (filter$ | async)">
+    <ion-icon name="search-outline" color="primary"></ion-icon>
+    <span>Não foi possível localizar notas através da sua pesquisa!</span>
+    <ion-button routerLink="/note-detail" expand="block" fill="outline">
+      Fazer uma nova anotação</ion-button
+    >
   </div>
 </ion-content>
