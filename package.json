@@ -28,7 +28,7 @@
     "@ionic/angular": "^5.0.0",
     "@ngrx/effects": "^9.2.0",
     "@ngrx/store": "^9.2.0",
-    "moment": "^2.27.0",
+    "moment": "^2.29.2",
     "ngrx-store-localstorage": "^9.0.0",
     "rxjs": "~6.5.1",
     "tslib": "^1.10.0",
